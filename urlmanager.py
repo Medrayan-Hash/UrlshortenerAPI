@@ -1,3 +1,4 @@
+import json
 import string
 import random
 from url import Url
@@ -24,8 +25,21 @@ class UrlManager:
 
             return url_object
 
+    def urls_dict(self):
+        urls_dicts = []
+        for url in self.urls:
+            urls_dicts.append(url.url_dict())
+
+        return urls_dicts
+
+    def save_url(self):
+        with open('url.json', 'w') as w:
+            json.dump(self.urls_dict(), w)
+
     def shorten_url(self, url):
         self.create_url_object(url)
+        self.save_url()
+
 
 
 
