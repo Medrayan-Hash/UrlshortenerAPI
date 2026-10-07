@@ -1,14 +1,5 @@
-import string
-import random
+from urlmanager import UrlManager
 
-characters=string.ascii_letters+string.digits
+manager = UrlManager()
 
-token=[]
-
-for c in range(5):
-    character=random.choice(characters)
-    token.append(character)
-
-
-short_code="".join(token)
-
+manager.shorten_url("https://www.google.com")
