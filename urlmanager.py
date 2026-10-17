@@ -28,7 +28,7 @@ class UrlManager:
     def urls_dict(self):
         urls_dicts = []
         for url in self.urls:
-            urls_dicts.append(url.url_dict())
+            urls_dicts.append(url.to_dict())
 
         return urls_dicts
 
@@ -37,9 +37,9 @@ class UrlManager:
             json.dump(self.urls_dict(), w)
 
     def shorten_url(self, url):
-        self.create_url_object(url)
+        the_object=self.create_url_object(url)
         self.save_url()
-
+        return f"http://127.0.0.1:8000/{the_object.code}"
 
 
 
