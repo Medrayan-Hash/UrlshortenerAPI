@@ -41,6 +41,23 @@ class UrlManager:
         self.save_url()
         return f"http://127.0.0.1:8000/{the_object.code}"
 
+    def return_object(self, url_code):
+       self.load_object()
+       for i in self.urls:
+           if i.code == url_code:
+               return i
+       return None
+
+    def load_object(self):
+       with open('url.json', 'r') as read:
+           data = json.load(read)
+
+       for url_object in data:
+           object_url=Url(**url_object)
+           self.urls.append(object_url)
+       return self.urls
+
+
 
 
 

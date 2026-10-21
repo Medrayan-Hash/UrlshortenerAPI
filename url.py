@@ -9,5 +9,10 @@ class Url:
     def to_dict(self):
         return {
            "origin_url":self.origin_url,
-            "short_code":self.code,
+            "code":self.code,
         }
+
+    @staticmethod
+    def to_object(data):
+        url_object = Url(**data)
+        return url_object
