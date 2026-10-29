@@ -1,6 +1,8 @@
+from starlette import status
 from urlmanager import UrlManager
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.responses import RedirectResponse
 
 manager = UrlManager()
 
@@ -16,7 +18,6 @@ def shorten_url(payload: Url):
 
 @app.get("/{url_code}")
 def get_short_url(url_code: str):
-    return manager.return_object(url_code)
-
-
+    the_url=manager.return_object(url_code)
+    return RedirectResponse(the_url.origin_url , status.HTTP_302_FOUND)
 

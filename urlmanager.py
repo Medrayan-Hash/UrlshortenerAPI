@@ -2,13 +2,14 @@ import json
 import string
 import random
 from url import Url
+from fastapi import HTTPException
 
 class UrlManager:
     def __init__(self):
         self.urls = []
+        self.load_object()
 
-    @staticmethod
-    def generate_code():
+    def generate_code(self):
         characters = string.ascii_letters + string.digits
         token = []
         for c in range(5):
@@ -16,6 +17,10 @@ class UrlManager:
             token.append(character)
 
         short_code = "".join(token)
+
+        for i in self.urls:
+            if short_code == i.code:
+                return self.generate_code()
         return short_code
 
     def create_url_object(self, url):
@@ -42,11 +47,11 @@ class UrlManager:
         return f"http://127.0.0.1:8000/{the_object.code}"
 
     def return_object(self, url_code):
-       self.load_object()
        for i in self.urls:
            if i.code == url_code:
                return i
-       return None
+
+       raise HTTPException(status_code=404, detail="Object Not Found")
 
     def load_object(self):
        with open('url.json', 'r') as read:
